@@ -6,9 +6,9 @@
 - **Jahangir Amiri**
 - **Sadaf Aslam**
 
-**Course:** Deep Learning  
-**Instructor:** Sir Sajid Majeed  
-**Program:** Post Graduate Diploma (PGD) in Data Science & AI  
+**Course:** Deep Learning
+**Instructor:** Sir Sajid Majeed
+**Program:** Post Graduate Diploma (PGD) in Data Science & AI
 **Institution:** NED University of Engineering & Technology
 
 ---
@@ -23,36 +23,46 @@ The notebook documents dataset inspection, exploratory analysis, preprocessing, 
 
 > **Important:** Age, gender, and emotion predictions from facial images are probabilistic model outputs and can be inaccurate. They should not be treated as reliable judgments about a person's identity, personality, or actual demographic characteristics.
 
+## Results
+
+| Task | Validation accuracy |
+|---|---|
+| Emotion (7-class, FER2013) | 59.4% |
+| Age group (7-class, UTKFace, fine-tuned) | 58.1% |
+| Gender (binary, UTKFace, fine-tuned) | 87.2% |
+
+Full breakdown, confusion matrix discussion, and per-emotion-class analysis are in [PROJECT_REPORT.md](PROJECT_REPORT.md).
+
 ## Project structure
 
 ```text
 FER-Age-Gender-Emotion-Project/
-├── emotion_age_prediction.ipynb
-├── webcam_app.py
-├── haarcascade_frontalface_default.xml
-├── requirements.txt
-├── requirements-demo.txt
-├── requirements-local.txt
 ├── README.md
-├── DEPLOYMENT.md
 ├── PROJECT_REPORT.md
+├── DEPLOYMENT.md
+├── requirements.txt
 ├── .gitignore
-└── models/
-    └── README.md
+├── haarcascade_frontalface_default.xml
+├── models/
+│   ├── README.md
+│   ├── emotion_model.keras
+│   └── age_gender_model_finetuned.keras
+├── notebooks/
+│   └── Facial_Emotion_Age_Gender_Prediction.ipynb
+└── src/
+    └── webcam_app.py
 ```
 
 ## Models
 
-For local testing, use:
+Both trained models are included in this repository under `models/`:
 
 ```text
-emotion_model.keras
-age_gender_model_finetuned.keras
+models/emotion_model.keras
+models/age_gender_model_finetuned.keras
 ```
 
-`age_gender_model.keras` is the earlier transfer-learning model before fine-tuning. It is optional for the final demo.
-
-Model files are not included in this repository template because trained Keras files can be large. Add them locally if they are small enough for your chosen hosting method, or host them separately.
+`age_gender_model_finetuned.keras` is the model actually used by the webcam app — it's the MobileNetV2 model after the fine-tuning stage described in the report. The intermediate frozen-backbone version is not kept in the repo, only its metrics (see PROJECT_REPORT.md, section 5.2).
 
 ## Run locally
 
@@ -71,32 +81,28 @@ python -m venv .venv
 pip install -r requirements.txt
 ```
 
-### 3. Put the trained models in the project folder
+### 3. Start the webcam application
 
-The simplest layout for the current `webcam_app.py` is:
-
-```text
-project/
-├── webcam_app.py
-├── emotion_model.keras
-├── age_gender_model_finetuned.keras
-└── haarcascade_frontalface_default.xml
-```
-
-### 4. Start the webcam application
+Run this from the project root — `webcam_app.py` resolves the model and cascade paths relative to the repo root automatically, so nothing needs to be copied around:
 
 ```bash
-python webcam_app.py
+python src/webcam_app.py
 ```
 
-Press **q** to close the application.
+Press **q** to close the window. If you have more than one camera, pick a different index with `--camera 1`. If you don't have a webcam handy (e.g. for grading), you can run it against a single photo instead:
+
+```bash
+python src/webcam_app.py --image path/to/photo.jpg
+```
+
+This saves an annotated copy (`photo_predicted.jpg`) next to the original.
 
 ## Notebook
 
-Open `emotion_age_prediction.ipynb` in Jupyter Notebook or upload it to Google Colab. The notebook downloads the datasets through Kaggle, performs exploratory checks and sample visualization, trains the models, evaluates them, and saves the trained models.
+Open `notebooks/Facial_Emotion_Age_Gender_Prediction.ipynb` in Jupyter Notebook or upload it to Google Colab. The notebook downloads the datasets through Kaggle, performs exploratory checks and sample visualization, trains the models, evaluates them, and saves the trained models.
 
 ## Suggested GitHub presentation
 
 Keep the repository focused on the project rather than uploading raw datasets or every training checkpoint. A good public repository contains the notebook, application code, setup instructions, model information, and a short report.
 
-For the strongest presentation, add 2–4 screenshots or a short demo GIF/video under `assets/` after testing the application locally.
+For the strongest presentation, add 2–4 screenshots or a short demo GIF/video under `assets/` after testing the application locally — the `--image` mode above is a quick way to generate a clean annotated screenshot for this.
