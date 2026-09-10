@@ -10,10 +10,18 @@ Best for your NED demonstration and portfolio video.
 
 ```bash
 pip install -r requirements.txt
-python webcam_app.py
+python src/webcam_app.py
 ```
 
-This version accesses the computer's webcam directly.
+This version accesses the computer's webcam directly. Run it from the project root — the script resolves the model files in `models/` and the Haar Cascade file automatically.
+
+If you don't have a webcam available (or just want a quick, clean screenshot for the README), run it against a single photo instead:
+
+```bash
+python src/webcam_app.py --image path/to/photo.jpg
+```
+
+This saves an annotated copy next to the original — a fast way to produce the demo screenshots the README still needs.
 
 ### Option B — Public web demo
 
@@ -25,16 +33,16 @@ A practical public demo should accept a webcam/image frame and return the predic
 
 1. Finish and execute the notebook in Colab.
 2. Download `emotion_model.keras` and `age_gender_model_finetuned.keras`.
-3. Test the local webcam application.
-4. Record a short 20–40 second demo showing the predictions.
-5. Create the GitHub repository and upload the notebook, Python app, requirements, README, report, and Haar Cascade file.
-6. If the Keras models are too large for GitHub, host them separately (for example on Hugging Face Hub) and document the download step.
+3. Test the local webcam application (`python src/webcam_app.py`).
+4. Use `--image` on a couple of test photos, or record a short 20–40 second webcam demo, showing the predictions.
+5. Create the GitHub repository and upload the notebook, Python app, requirements, README, report, models folder, and Haar Cascade file.
+6. Both trained model files are small enough (under 30 MB combined) to commit directly, which is what this repo already does — no Git LFS or external hosting is needed at the current size. Revisit this only if you retrain with a larger backbone and the files grow past roughly 50–100 MB.
 7. Create a Hugging Face Space for the browser demo.
 8. Put the GitHub and live-demo links on LinkedIn.
 
 ## GitHub model-file advice
 
-Normal GitHub repositories have file-size limits. Do not commit raw datasets, Colab caches, or every training checkpoint. If a trained model is too large, use Git LFS or a model-hosting service instead.
+Normal GitHub repositories have file-size limits (100 MB hard limit per file). Do not commit raw datasets, Colab caches, or every training checkpoint. If a trained model grows too large for a plain commit, use Git LFS or a model-hosting service instead.
 
 ## Academic submission vs public portfolio
 
