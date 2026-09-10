@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local datasets and generated files
+/data/
+datasets/
+*.csv
+*.zip
+
+# Training checkpoints and TensorFlow artifacts
+*_best.keras
+*.weights.h5
+
+# Optional large model files: keep locally or use Git LFS / Hugging Face
+# Uncomment if you do not want models in the GitHub repository.
+# *.keras
+
+# OS / editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
