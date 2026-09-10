@@ -46,6 +46,10 @@ OpenCV's Haar Cascade frontal-face detector is used in the local webcam applicat
 
 The notebook includes basic dataset inspection before model training. For FER2013, the class structure and representative images are checked. For UTKFace, sample images are displayed with labels derived from the filenames, and the distribution of the seven age groups is examined.
 
+![FER2013 class distribution](assets/fer2013_class_distribution.png)
+
+![UTKFace age and gender distribution](assets/utkface_age_gender_distribution.png)
+
 ## 5. Evaluation
 
 Results below are taken directly from the executed notebook (validation set).
@@ -60,13 +64,23 @@ Results below are taken directly from the executed notebook (validation set).
 | Age-group classification | UTKFace | MobileNetV2, fine-tuned | 0.581 | 1.136 |
 | Gender classification | UTKFace | MobileNetV2, fine-tuned | 0.872 | 0.331 |
 
+![Emotion model training and validation curves](assets/emotion_training_curves.png)
+
+![Age and gender model, frozen-backbone training curves](assets/age_gender_initial_curves.png)
+
+![Age and gender model, fine-tuning training curves](assets/age_gender_finetune_curves.png)
+
 ### 5.2 Effect of fine-tuning
 
 Unfreezing the last 30 layers of MobileNetV2 and continuing training at a lower learning rate produced a small improvement in accuracy for both heads (age: +0.4 points, gender: +0.7 points), but validation loss increased slightly on both. This suggests the fine-tuning stage gave the model modest additional discriminative power without a corresponding gain in calibration — likely because 15–20 epochs at a very low learning rate is enough to nudge decision boundaries but not enough to meaningfully re-shape the pretrained features. A longer fine-tuning run, or a slightly higher learning rate with stronger regularization, is a natural next experiment rather than assuming this configuration is close to optimal.
 
+![Validation accuracy before and after fine-tuning](assets/before_after_finetuning.png)
+
 ### 5.3 Emotion model — per-class breakdown
 
 The 7-class FER2013 confusion matrix and classification report (from the notebook) show accuracy is not evenly distributed across emotions:
+
+![FER2013 validation confusion matrix](assets/emotion_confusion_matrix.png)
 
 | Emotion | Precision | Recall | F1 | Support |
 |---|---|---|---|---|
@@ -79,7 +93,9 @@ The 7-class FER2013 confusion matrix and classification report (from the noteboo
 | Surprise | 0.692 | 0.812 | 0.747 | 831 |
 | **Overall accuracy** | | | **0.594** | 7178 |
 
-**Reading these numbers honestly:** the model is strong on "happy" and "surprise" (both visually distinctive expressions), but weak on "fear" (recall of just 0.154 — it misses roughly 5 out of 6 true "fear" examples, most likely confusing them with "sad" or "surprise") and unreliable on "disgust" (only 111 validation examples, so its precision/recall are both noisy and not to be trusted as a stable estimate). This class-level pattern is consistent with well-documented FER2013 difficulties: fear and disgust are underrepresented and visually ambiguous even for human annotators, which is part of why FER2013-trained models rarely exceed ~65-70% overall accuracy without much deeper architectures or additional data.
+The model is strong on "happy" and "surprise," both visually distinctive expressions. It is weak on "fear" (recall 0.154 — roughly 5 out of 6 true "fear" examples misclassified, most likely as "sad" or "surprise") and unreliable on "disgust" (111 validation examples; precision/recall estimates are not stable at this sample size). This is consistent with known FER2013 characteristics: fear and disgust are underrepresented and visually ambiguous even for human annotators, a factor in why FER2013-trained models typically top out around 65–70% overall accuracy without deeper architectures or additional data.
+
+![Fine-tuned model, example validation predictions](assets/example_predictions.png)
 
 ## 6. Limitations
 
