@@ -1,14 +1,17 @@
 # Facial Emotion, Age Group, and Gender Prediction
 
-Deep Learning course project — Post Graduate Diploma in Data Science & AI, NED University of Engineering & Technology.
-
-**Jahangir Amiri, Sadaf Aslam** · Instructor: Sir Sajid Majeed
-
-Real-time facial analysis from a webcam or photo:
+Real-time facial analysis from a webcam or photo — detects a face and predicts emotion, age group, and gender.
 
 - **Emotion** (7-class) — custom CNN, FER2013
 - **Age group** (7-class) + **gender** — MobileNetV2 transfer learning on UTKFace, fine-tuned
 - **Face detection** — OpenCV Haar Cascade
+
+| | |
+|---|---|
+| **Partners** | Jahangir Amiri & Sadaf Aslam |
+| **Course** | Deep Learning |
+| **Instructor** | Sir Sajid Majeed |
+| **Program** | Post Graduate Diploma (PGD) in Data Science & AI, NED University of Engineering & Technology |
 
 > Predictions are probabilistic model outputs. Not a reliable indicator of identity, personality, or actual demographic characteristics.
 
@@ -31,11 +34,19 @@ FER-Age-Gender-Emotion-Project/
 ├── README.md
 ├── PROJECT_REPORT.md
 ├── DEPLOYMENT.md
+├── LICENSE
 ├── requirements.txt
 ├── .gitignore
 ├── haarcascade_frontalface_default.xml
 ├── assets/
-│   └── (charts extracted from the notebook)
+│   ├── emotion_confusion_matrix.png
+│   ├── emotion_training_curves.png
+│   ├── fer2013_class_distribution.png
+│   ├── utkface_age_gender_distribution.png
+│   ├── age_gender_initial_curves.png
+│   ├── age_gender_finetune_curves.png
+│   ├── before_after_finetuning.png
+│   └── example_predictions.png
 ├── models/
 │   ├── README.md
 │   ├── emotion_model.keras
@@ -53,7 +64,7 @@ FER-Age-Gender-Emotion-Project/
 
 ```bash
 python -m venv .venv
-.venv\Scripts\activate
+source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 

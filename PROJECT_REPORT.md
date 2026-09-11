@@ -2,15 +2,13 @@
 
 ## Facial Emotion, Age Group, and Gender Prediction Using Deep Learning
 
-### Project Partners
-
-**Jahangir Amiri**
-**Sadaf Aslam**
-
-**Course:** Deep Learning
-**Instructor:** Sir Sajid Majeed
-**Program:** Post Graduate Diploma (PGD) in Data Science & AI
-**Institution:** NED University of Engineering & Technology
+| | |
+|---|---|
+| **Project Partners** | Jahangir Amiri & Sadaf Aslam |
+| **Course** | Deep Learning |
+| **Instructor** | Sir Sajid Majeed |
+| **Program** | Post Graduate Diploma (PGD) in Data Science & AI |
+| **Institution** | NED University of Engineering & Technology |
 
 ---
 
