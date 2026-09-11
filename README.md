@@ -1,6 +1,6 @@
 # Facial Emotion, Age Group & Gender Prediction
 
-> **A real-time multi-task facial analysis application built with Deep Learning, Computer Vision and Streamlit.**
+> **A multi-task facial analysis application using deep learning, computer vision, and Streamlit, with real-time local webcam inference and a browser-based web interface.**
 
 <p align="center">
   <a href="https://github.com/Amiri313/FER-Age-Gender-Emotion-Project"><img src="https://img.shields.io/badge/GitHub-Repository-181717?logo=github" /></a>
@@ -25,7 +25,7 @@ This project detects faces from an image or webcam feed and predicts three attri
 - **Face detection:** OpenCV Haar Cascade
 - **Interfaces:** local OpenCV webcam application + interactive Streamlit web app
 
-The goal was not only to train models, but to take them through a complete applied ML workflow: data preparation, augmentation, class weighting, transfer learning, fine-tuning, evaluation, model export, inference and deployment-ready application development.
+The project covers an end-to-end applied ML workflow: data preparation, augmentation, class weighting, transfer learning, fine-tuning, evaluation, model export, inference, and deployment-oriented application development.
 
 > ⚠️ **Important:** The outputs are probabilistic model predictions and can be wrong. They should not be treated as reliable judgments of identity, personality, or actual demographic characteristics.
 
@@ -60,13 +60,15 @@ python src/webcam_app.py --image path/to/photo.jpg
 
 ### Streamlit web application
 
-The Streamlit version provides camera snapshots and image upload, with a clearer results dashboard and per-face prediction details.
+The deployed Streamlit version provides browser-based camera snapshots and image upload, with per-face prediction details and emotion probability visualisation.
+
+**Live demo:** https://fer-age-gender-emotion.streamlit.app/
+
+Run locally with:
 
 ```bash
 streamlit run streamlit_app/streamlit_app.py
 ```
-
-> **Live Streamlit demo:** deployment is configured in `DEPLOYMENT.md`. Once the app is published on Streamlit Community Cloud, add the public URL here.
 
 ## 📊 Model Performance
 
@@ -113,7 +115,6 @@ FER-Age-Gender-Emotion-Project/
 ├── README.md
 ├── PROJECT_REPORT.md
 ├── DEPLOYMENT.md
-├── LICENSE
 ├── requirements.txt
 ├── .gitignore
 ├── haarcascade_frontalface_default.xml
@@ -199,20 +200,18 @@ streamlit run streamlit_app/streamlit_app.py
 
 `notebooks/Facial_Emotion_Age_Gender_Prediction.ipynb` contains the main training workflow, including dataset preparation, augmentation, model training, evaluation, fine-tuning and model export. It was designed for Google Colab and uses the Kaggle API for dataset access.
 
-## 🔬 What I Learned
+## 🔬 Key Takeaways
 
-This project helped me move from simply training models to building an end-to-end computer vision application. The main areas covered were:
+The project combines several practical deep-learning techniques in one application:
 
-- CNN architecture design
-- Image preprocessing and augmentation
-- Class imbalance and class weighting
+- CNN architecture design and image preprocessing
+- Data augmentation, class weighting, and regularisation
 - Transfer learning with MobileNetV2
 - Multi-output neural networks
 - Fine-tuning pretrained models
-- Model evaluation and confusion-matrix analysis
-- Real-time computer vision inference
-- Building a Streamlit interface
-- Communicating model limitations responsibly
+- Confusion-matrix and classification-report analysis
+- Real-time computer-vision inference with OpenCV
+- Browser-based deployment with Streamlit
 
 ## 🔮 Future Improvements
 
