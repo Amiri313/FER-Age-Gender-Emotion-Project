@@ -15,6 +15,16 @@ Real-time facial analysis from a webcam or photo — detects a face and predicts
 
 > Predictions are probabilistic model outputs. Not a reliable indicator of identity, personality, or actual demographic characteristics.
 
+## Demo
+
+<p align="center">
+  <img src="assets/app_demo/demo_happy.png" width="45%" />
+  <img src="assets/app_demo/demo_angry.png" width="45%" />
+  <br/>
+  <img src="assets/app_demo/demo_neutral.png" width="45%" />
+  <img src="assets/app_demo/demo_sad.png" width="45%" />
+</p>
+
 ## Results
 
 | Task | Validation accuracy |
@@ -39,6 +49,11 @@ FER-Age-Gender-Emotion-Project/
 ├── .gitignore
 ├── haarcascade_frontalface_default.xml
 ├── assets/
+│   ├── app_demo/
+│   │   ├── demo_angry.png
+│   │   ├── demo_happy.png
+│   │   ├── demo_neutral.png
+│   │   └── demo_sad.png
 │   ├── emotion_confusion_matrix.png
 │   ├── emotion_training_curves.png
 │   ├── fer2013_class_distribution.png

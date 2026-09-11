@@ -1,49 +1,32 @@
-# Deployment guide
+# Deployment
 
-## Recommended setup
-
-Use **GitHub** as the source-code/project portfolio and **Hugging Face Spaces** as the public interactive demo. This separation is practical because the GitHub repository can document the complete academic work while the Space can focus on a simple user-facing demo.
-
-### Option A — Local webcam demo
-
-Best for your NED demonstration and portfolio video.
+## Local
 
 ```bash
 pip install -r requirements.txt
 python src/webcam_app.py
 ```
 
-This version accesses the computer's webcam directly. Run it from the project root — the script resolves the model files in `models/` and the Haar Cascade file automatically.
-
-If you don't have a webcam available (or just want a quick, clean screenshot for the README), run it against a single photo instead:
+Single image instead of webcam:
 
 ```bash
 python src/webcam_app.py --image path/to/photo.jpg
 ```
 
-This saves an annotated copy next to the original — a fast way to produce the demo screenshots the README still needs.
+## Web — Streamlit Community Cloud (free)
 
-### Option B — Public web demo
+```bash
+streamlit run streamlit_app/streamlit_app.py
+```
 
-For a public browser demo, create a Hugging Face Space using **Gradio** or another browser-friendly interface. A web deployment cannot simply use the desktop OpenCV webcam loop in `webcam_app.py`; the browser needs to provide the camera frames to the application.
+Deploy: push `streamlit_app/` → share.streamlit.io → connect repo → main file path `streamlit_app/streamlit_app.py`.
 
-A practical public demo should accept a webcam/image frame and return the predicted emotion, age group, and gender. Keep the demo lightweight and avoid collecting or storing user images.
+`streamlit_app/requirements.txt` uses `opencv-python-headless`, separate from the root `requirements.txt` (`opencv-python`, for local `cv2.imshow`).
 
-## Recommended deployment order
+## Web — Hugging Face Spaces (paid)
 
-1. Finish and execute the notebook in Colab.
-2. Download `emotion_model.keras` and `age_gender_model_finetuned.keras`.
-3. Test the local webcam application (`python src/webcam_app.py`).
-4. Use `--image` on a couple of test photos, or record a short 20–40 second webcam demo, showing the predictions.
-5. Create the GitHub repository and upload the notebook, Python app, requirements, README, report, models folder, and Haar Cascade file.
-6. Both trained model files are small enough (under 30 MB combined) to commit directly, which is what this repo already does — no Git LFS or external hosting is needed at the current size. Revisit this only if you retrain with a larger backbone and the files grow past roughly 50–100 MB.
-7. Create a Hugging Face Space for the browser demo.
-8. Put the GitHub and live-demo links on LinkedIn.
+Gradio version: `app.py`, separate Space repo. Requires HF PRO ($9/mo) to create a Gradio or Docker Space.
 
-## GitHub model-file advice
+## Model files
 
-Normal GitHub repositories have file-size limits (100 MB hard limit per file). Do not commit raw datasets, Colab caches, or every training checkpoint. If a trained model grows too large for a plain commit, use Git LFS or a model-hosting service instead.
-
-## Academic submission vs public portfolio
-
-For the NED submission, keep the complete notebook and report available to the instructor. For GitHub, keep the repository reproducible but avoid committing private credentials, Kaggle keys, raw datasets, or unnecessary intermediate checkpoints.
+`models/emotion_model.keras`, `models/age_gender_model_finetuned.keras` — committed directly (<30 MB combined). Git LFS or external hosting past ~50–100 MB.

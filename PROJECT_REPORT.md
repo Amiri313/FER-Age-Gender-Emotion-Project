@@ -95,6 +95,20 @@ The model is strong on "happy" and "surprise," both visually distinctive express
 
 ![Fine-tuned model, example validation predictions](assets/example_predictions.png)
 
+### 5.4 Real-world qualitative test
+
+The validation predictions above are drawn from the FER2013/UTKFace datasets themselves. As a separate check on real-world generalization, `webcam_app.py` was run locally against live webcam input across a range of expressions:
+
+<p align="center">
+  <img src="assets/app_demo/demo_happy.png" width="45%" />
+  <img src="assets/app_demo/demo_angry.png" width="45%" />
+  <br/>
+  <img src="assets/app_demo/demo_neutral.png" width="45%" />
+  <img src="assets/app_demo/demo_sad.png" width="45%" />
+</p>
+
+"Happy" and "neutral" were classified with high confidence (89% and 93%), consistent with these being the strongest classes in the validation confusion matrix (5.3). "Angry" and "sad" were correctly identified but with much lower confidence (50% and 39%), which also matches the validation results — both classes show substantial confusion with neighboring expressions in the confusion matrix, and the same uncertainty shows up here on unseen, real-world input.
+
 ## 6. Limitations
 
 - Overall emotion accuracy (59.4%) and age-bracket accuracy (58.1%) are moderate, not high — appropriate for a coursework-scale CNN/transfer-learning setup, but not production-grade. Gender accuracy (87.2%) is comparably strong, reflecting that binary gender classification from face crops is an easier task than 7-way emotion or age classification.
