@@ -34,12 +34,18 @@ streamlit_app/requirements.txt
 3. Select this repository: `Amiri313/FER-Age-Gender-Emotion-Project`.
 4. Branch: `main`.
 5. Main file path: `streamlit_app/streamlit_app.py`.
-6. Optionally choose a custom app subdomain such as `fer-age-gender-emotion` if it is available.
-7. Click **Deploy**.
+6. Select **Python 3.11** in Advanced settings for compatibility with the pinned TensorFlow version used by the Streamlit app.
+7. Optionally choose a custom app subdomain such as `fer-age-gender-emotion` if it is available.
+8. Click **Deploy**.
 
-Streamlit Community Cloud creates a public `streamlit.app` URL for the deployment. After deployment, add that URL to the **Live Streamlit demo** section of `README.md`.
+The current public deployment is:
 
-> The repository owner must authorize Streamlit to access the GitHub repository. This is an account-level authorization step and cannot be completed by the GitHub repository integration alone.
+https://fer-age-gender-emotion.streamlit.app/
+
+### Application modes
+
+- **Local OpenCV app:** continuous real-time webcam inference using `cv2.VideoCapture()`.
+- **Streamlit app:** browser-based camera snapshots and image upload. `st.camera_input()` captures a still image rather than providing a continuous video stream.
 
 ### After deployment
 
