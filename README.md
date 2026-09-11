@@ -8,7 +8,7 @@ Real-time facial analysis from a webcam or photo — detects a face and predicts
 
 | | |
 |---|---|
-| **Partners** | Jahangir Amiri & Sadaf Aslam |
+| **Project Partners** | Jahangir Amiri & Sadaf Aslam |
 | **Course** | Deep Learning |
 | **Instructor** | Sir Sajid Majeed |
 | **Program** | Post Graduate Diploma (PGD) in Data Science & AI, NED University of Engineering & Technology |
