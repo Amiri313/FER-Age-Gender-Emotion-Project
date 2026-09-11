@@ -10,6 +10,8 @@
 | **Program** | Post Graduate Diploma (PGD) in Data Science & AI |
 | **Institution** | NED University of Engineering & Technology |
 
+**Live application:** https://fer-age-gender-emotion.streamlit.app/
+
 ---
 
 ## 1. Project Objective
