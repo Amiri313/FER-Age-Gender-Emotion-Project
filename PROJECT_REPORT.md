@@ -70,7 +70,7 @@ Results below are taken directly from the executed notebook (validation set).
 
 ### 5.2 Effect of fine-tuning
 
-Unfreezing the last 30 layers of MobileNetV2 and continuing training at a lower learning rate produced a small improvement in accuracy for both heads (age: +0.4 points, gender: +0.7 points), but validation loss increased slightly on both. This suggests the fine-tuning stage gave the model modest additional discriminative power without a corresponding gain in calibration — likely because 15–20 epochs at a very low learning rate is enough to nudge decision boundaries but not enough to meaningfully re-shape the pretrained features. A longer fine-tuning run, or a slightly higher learning rate with stronger regularization, is a natural next experiment rather than assuming this configuration is close to optimal.
+Unfreezing the last 30 layers of MobileNetV2 and continuing training at a lower learning rate produced a small improvement in validation accuracy for both heads (age: +0.4 points, gender: +0.7 points), while validation loss increased slightly. The improvement was therefore modest, and the current fine-tuning configuration would benefit from further experimentation rather than being treated as an optimal setup.
 
 ![Validation accuracy before and after fine-tuning](assets/before_after_finetuning.png)
 
@@ -81,7 +81,7 @@ The 7-class FER2013 confusion matrix and classification report (from the noteboo
 ![FER2013 validation confusion matrix](assets/emotion_confusion_matrix.png)
 
 | Emotion | Precision | Recall | F1 | Support |
-|---|---|---|---|---|
+|---|---:|---:|---:|---:|
 | Angry | 0.521 | 0.481 | 0.501 | 958 |
 | Disgust | 0.282 | 0.748 | 0.410 | 111 |
 | Fear | 0.480 | 0.154 | 0.234 | 1024 |
@@ -91,13 +91,13 @@ The 7-class FER2013 confusion matrix and classification report (from the noteboo
 | Surprise | 0.692 | 0.812 | 0.747 | 831 |
 | **Overall accuracy** | | | **0.594** | 7178 |
 
-The model is strong on "happy" and "surprise," both visually distinctive expressions. It is weak on "fear" (recall 0.154 — roughly 5 out of 6 true "fear" examples misclassified, most likely as "sad" or "surprise") and unreliable on "disgust" (111 validation examples; precision/recall estimates are not stable at this sample size). This is consistent with known FER2013 characteristics: fear and disgust are underrepresented and visually ambiguous even for human annotators, a factor in why FER2013-trained models typically top out around 65–70% overall accuracy without deeper architectures or additional data.
+The model performs best on **Happy** and **Surprise**. **Fear** is the weakest class by recall (0.154), while **Disgust** has limited validation support (111 examples), making its class-level metrics less stable than those of the larger classes.
 
 ![Fine-tuned model, example validation predictions](assets/example_predictions.png)
 
 ### 5.4 Real-world qualitative test
 
-The validation predictions above are drawn from the FER2013/UTKFace datasets themselves. As a separate check on real-world generalization, `webcam_app.py` was run locally against live webcam input across a range of expressions:
+The validation predictions above are drawn from the FER2013/UTKFace datasets themselves. As a separate qualitative check on real-world generalization, `webcam_app.py` was run locally against live webcam input across a range of expressions:
 
 <p align="center">
   <img src="assets/app_demo/demo_happy.png" width="45%" />
@@ -107,12 +107,12 @@ The validation predictions above are drawn from the FER2013/UTKFace datasets the
   <img src="assets/app_demo/demo_sad.png" width="45%" />
 </p>
 
-"Happy" and "neutral" were classified with high confidence (89% and 93%), consistent with these being the strongest classes in the validation confusion matrix (5.3). "Angry" and "sad" were correctly identified but with much lower confidence (50% and 39%), which also matches the validation results — both classes show substantial confusion with neighboring expressions in the confusion matrix, and the same uncertainty shows up here on unseen, real-world input.
+In these example runs, "Happy" and "neutral" were classified with high confidence (89% and 93%), while "angry" and "sad" were correctly identified with lower confidence (50% and 39%). These examples are qualitative only and should not be interpreted as an additional validation set.
 
 ## 6. Limitations
 
 - Overall emotion accuracy (59.4%) and age-bracket accuracy (58.1%) are moderate, not high — appropriate for a coursework-scale CNN/transfer-learning setup, but not production-grade. Gender accuracy (87.2%) is comparably strong, reflecting that binary gender classification from face crops is an easier task than 7-way emotion or age classification.
-- The "fear" and "disgust" emotion classes are unreliable due to class imbalance and inherent visual ambiguity (see 5.3).
+- The "fear" and "disgust" emotion classes are unreliable due to class imbalance and visual ambiguity (see 5.3).
 - Predictions are affected by lighting, pose, occlusion, image quality, facial-expression ambiguity, dataset bias, and the relatively coarse age-group labels.
 - Gender prediction is a binary model classification task trained on UTKFace's binary labels and should not be presented as a definitive determination of a person's gender identity.
 
@@ -126,4 +126,4 @@ The validation predictions above are drawn from the FER2013/UTKFace datasets the
 
 ## 8. Conclusion
 
-This project demonstrates a complete deep-learning workflow from dataset preparation and exploratory analysis through model training, evaluation, fine-tuning, and deployment-oriented testing. The combination of a custom CNN for emotion recognition and MobileNetV2 transfer learning for age-group and gender prediction provides a practical example of applying deep learning to real-time facial-image analysis. Gender classification reached a solid 87.2% validation accuracy; emotion (59.4%) and age-group (58.1%) classification are moderate and have clearly identified weak points (particularly the "fear" emotion class) rather than being uniformly strong — an honest characterization that also points directly at where future iterations should focus.
+This project demonstrates a complete deep-learning workflow from dataset preparation and exploratory analysis through model training, evaluation, fine-tuning, and deployment-oriented testing. The combination of a custom CNN for emotion recognition and MobileNetV2 transfer learning for age-group and gender prediction provides a practical example of applying deep learning to facial-image analysis. Gender classification reached a solid 87.2% validation accuracy; emotion (59.4%) and age-group (58.1%) classification are moderate and have clearly identified weak points, particularly the "fear" emotion class.
